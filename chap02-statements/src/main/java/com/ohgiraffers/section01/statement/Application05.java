@@ -1,4 +1,4 @@
-package com.ohgiraffers.setction01.statement;
+package com.ohgiraffers.section01.statement;
 
 import com.ohgiraffers.model.dto.EmployeeDTO;
 
@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static com.ohgiraffers.common.JDBCTemplate.close;
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;

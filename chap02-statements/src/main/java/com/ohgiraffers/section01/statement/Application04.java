@@ -1,4 +1,4 @@
-package com.ohgiraffers.setction01.statement;
+package com.ohgiraffers.section01.statement;
 
 import com.ohgiraffers.model.dto.EmployeeDTO;
 
