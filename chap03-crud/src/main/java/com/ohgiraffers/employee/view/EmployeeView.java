@@ -17,6 +17,7 @@ public class EmployeeView {
             System.out.println("1. 화면 전체보기");
             System.out.println("2. 사원 이름으로 조회하기 ");
             System.out.println("3. 사원 정보 등록하기");
+            System.out.println("4. 사원 정보 수정하기");
             Scanner sc = new Scanner(System.in);
             int index = Integer.parseInt(sc.nextLine());
 
@@ -29,6 +30,9 @@ public class EmployeeView {
                     break;
                 case 3:
                     empInsert();
+                    break;
+                case 4:
+                    empUpdate();
                     break;
             }
             System.out.print("종료를 하시겠습니까? 말해 (yes Or no) 오타x 소문자만 : ");
@@ -92,7 +96,28 @@ public class EmployeeView {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
+
+    public static void empUpdate(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("변경할 사원번호를 입력하세요");
+        String index = sc.nextLine();
+        EmployeeDTO emp = employeeService.empFindById(index);
+
+        if(emp == null){
+            System.out.println("변경할 사원이 존재하지 않습니다.");
+            return;
+        }
+        System.out.println(emp);
+        System.out.println("변경할 이름을 입력해주세요");
+        String name = sc.nextLine();
+        try {
+            EmployeeDTO modifyEmp = employeeService.empModify(name,index);
+            System.out.println(modifyEmp);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

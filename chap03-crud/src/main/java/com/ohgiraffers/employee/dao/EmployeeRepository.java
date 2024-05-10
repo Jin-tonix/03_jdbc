@@ -1,12 +1,9 @@
 package com.ohgiraffers.employee.dao;
 
-import com.mysql.cj.jdbc.JdbcConnection;
-import com.ohgiraffers.common.JDBCTemplate;
 import com.ohgiraffers.employee.dto.EmpInsertDTO;
 import com.ohgiraffers.employee.dto.EmployeeDTO;
 
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -145,6 +142,27 @@ public class EmployeeRepository {
         }
 
         return result;
+    }
+
+    public int empModify(String name, String index) {
+        // 쿼리불러오기
+        String query = pros.getProperty("empModify");
+        con = getConnection();
+        int result = 0;
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, name);
+            pstmt.setString(2, index);
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close(con);
+            close(pstmt);
+        }
+
+        return result;
+
     }
 }
 

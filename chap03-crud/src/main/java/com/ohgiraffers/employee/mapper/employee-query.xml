@@ -60,5 +60,10 @@
             ?
         )
     </entry>
+    <entry key="empModify">
+        UPDATE EMPLOYEE
+           SET EMP_NAME = ?
+         WHERE EMP_ID = ?
+    </entry>
 
 </properties>
