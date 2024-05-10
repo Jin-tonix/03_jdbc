@@ -16,6 +16,7 @@ public class EmployeeView {
             System.out.println("화면 번호를 입력해주세요 : ");
             System.out.println("1. 화면 전체보기");
             System.out.println("2. 사원 이름으로 조회하기 ");
+            System.out.println("3. 사원 정보 등록하기");
             Scanner sc = new Scanner(System.in);
             int index = Integer.parseInt(sc.nextLine());
 
@@ -25,6 +26,9 @@ public class EmployeeView {
                     break;
                 case 2 :
                     employeFindByName();
+                    break;
+                case 3:
+                    empInsert();
                     break;
             }
             System.out.print("종료를 하시겠습니까? 말해 (yes Or no) 오타x 소문자만 : ");
@@ -82,7 +86,12 @@ public class EmployeeView {
         System.out.print("사원의 급여를 입력해주세요 : (S1, S2, S3, S4, S5, S6)");
         emp.setSalLevel(sc.nextLine());
 
-        String result = employeeService.empInsert(emp);
+        try {
+            String result = employeeService.empInsert(emp);
+            System.out.println(result);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

@@ -2,6 +2,7 @@ package com.ohgiraffers.employee.dao;
 
 import com.mysql.cj.jdbc.JdbcConnection;
 import com.ohgiraffers.common.JDBCTemplate;
+import com.ohgiraffers.employee.dto.EmpInsertDTO;
 import com.ohgiraffers.employee.dto.EmployeeDTO;
 
 import java.io.FileInputStream;
@@ -88,4 +89,76 @@ public class EmployeeRepository {
 
         return emp;
     }
+
+    public EmployeeDTO empFindById(String index){
+        String query = pros.getProperty("employeeFindById");
+        con = getConnection();
+        EmployeeDTO emp = null;
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, index);
+            rset = pstmt.executeQuery();
+            if(rset.next()){
+                emp = new EmployeeDTO();
+                emp.setEmpId(rset.getString("EMP_ID"));
+                emp.setEmpName(rset.getString("EMP_NAME"));
+                emp.setPhone(rset.getString("PHONE"));
+                emp.setDeptCode(rset.getString("DEPT_CODE"));
+                emp.setJobCode(rset.getString("JOB_CODE"));
+                emp.setSalary(rset.getInt("SALARY"));
+                emp.setEntYn(rset.getString("ENT_YN"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close(con);
+            close(pstmt);
+            close(rset);
+        }
+
+        return emp;
+    }
+
+    public int empInsert(EmpInsertDTO emp) {
+        // 값을 추가
+        // 쿼리 가져옴
+        String query = pros.getProperty("empInsert");
+        // connection
+        con = getConnection();
+        int result = 0;
+        // 쿼리를 사용하기 위함
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1,emp.getEmpId());
+            pstmt.setString(2,emp.getEmpName());
+            pstmt.setString(3,emp.getEmpNo());
+            pstmt.setString(4,emp.getJobCode());
+            pstmt.setString(5,emp.getSalLevel());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close(con);
+            close(pstmt);
+        }
+
+        return result;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
