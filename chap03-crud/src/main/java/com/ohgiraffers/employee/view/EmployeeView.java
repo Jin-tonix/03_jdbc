@@ -1,5 +1,6 @@
 package com.ohgiraffers.employee.view;
 
+import com.ohgiraffers.employee.dto.EmpInsertDTO;
 import com.ohgiraffers.employee.dto.EmployeeDTO;
 import com.ohgiraffers.employee.service.EmployeeService;
 
@@ -62,6 +63,26 @@ public class EmployeeView {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public static void empInsert(){
+        Scanner sc = new Scanner(System.in);
+        EmpInsertDTO emp = new EmpInsertDTO();
+
+        System.out.println("등록할 사원의 정보를 입력해주세요 ");
+        System.out.print("사원의 번호를 입력해주세요 : ");
+        emp.setEmpId(sc.nextLine());
+        System.out.print("사원의 이름을 입력해주세요 : ");
+        emp.setEmpName(sc.nextLine());
+        System.out.print("사원의 주민번호를 입력해주세요 : ");
+        emp.setEmpNo(sc.nextLine());
+        System.out.print("사원의 직급을 입력해주세요 : (대표, 부사장, 부장, 차장, 과장, 대리, 사원)");
+        emp.setJobCode(sc.nextLine());
+        System.out.print("사원의 급여를 입력해주세요 : (S1, S2, S3, S4, S5, S6)");
+        emp.setSalLevel(sc.nextLine());
+
+        String result = employeeService.empInsert(emp);
 
     }
 

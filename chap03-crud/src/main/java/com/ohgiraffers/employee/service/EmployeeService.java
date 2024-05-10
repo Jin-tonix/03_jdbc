@@ -1,6 +1,7 @@
 package com.ohgiraffers.employee.service;
 
 import com.ohgiraffers.employee.dao.EmployeeRepository;
+import com.ohgiraffers.employee.dto.EmpInsertDTO;
 import com.ohgiraffers.employee.dto.EmployeeDTO;
 
 import java.util.ArrayList;
@@ -38,5 +39,19 @@ public class EmployeeService {
             throw new Exception("사원정보 조회실패");
         }
         return emp;
+    }
+
+    public String empInsert(EmpInsertDTO emp) throws Exception {
+        // 서비스는 아래와 같이 우리의 비즈니스 로직에 맞는 유효성을 검사한다.
+        // 아래는 사원의 번호가 중복되는 것을 확인하고 만약 중복이라면 등록을 취소해야한다.
+        ArrayList<EmployeeDTO> emps = employeeViewAll();
+
+        for (int i = 0; i < emps.size(); i++) {
+            EmployeeDTO findEmp = emps.get(i);
+            if(findEmp.getEmpId().equals(emp.getEmpId())){
+                throw new Exception("사원번호 중복");
+            }
+        }
+
     }
 }
