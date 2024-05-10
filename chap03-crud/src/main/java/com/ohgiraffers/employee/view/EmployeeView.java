@@ -1,5 +1,6 @@
 package com.ohgiraffers.employee.view;
 
+import com.ohgiraffers.employee.dto.EmployeeDTO;
 import com.ohgiraffers.employee.service.EmployeeService;
 
 import java.util.ArrayList;
@@ -11,8 +12,9 @@ public class EmployeeView {
 
     public static void run(){
         while (state){
-            System.out.print("화면 번호를 입력해주세요 : ");
+            System.out.println("화면 번호를 입력해주세요 : ");
             System.out.println("1. 화면 전체보기");
+            System.out.println("2. 사원 이름으로 조회하기 ");
             Scanner sc = new Scanner(System.in);
             int index = Integer.parseInt(sc.nextLine());
 
@@ -20,12 +22,16 @@ public class EmployeeView {
                 case 1 :
                     employeeViewAll();
                     break;
+                case 2 :
+                    employeFindByName();
+                    break;
             }
             System.out.print("종료를 하시겠습니까? 말해 (yes Or no) 오타x 소문자만 : ");
             String result = sc.nextLine();
 
             if(result.equals("yes")){
                 state = false;
+                sc.close();
             }
         }
 
@@ -44,6 +50,19 @@ public class EmployeeView {
         }
     }
 
+    public static void employeFindByName(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("조회할 사원의 이름을 입력하세요 : ");
+        String name = sc.nextLine();
+        EmployeeDTO emp = null;
 
+        try {
+            emp = employeeService.employeeFindByName(name);
+            System.out.println(emp);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }

@@ -59,4 +59,33 @@ public class EmployeeRepository {
 
         return arrayList;
     }
+
+    public EmployeeDTO employeeFindByName(String name) {
+        String query = pros.getProperty("employeeFindByName");
+        con = getConnection();
+        EmployeeDTO emp = new EmployeeDTO();
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, name);
+            rset = pstmt.executeQuery();
+            if(rset.next()){
+                emp.setEmpId(rset.getString("EMP_ID"));
+                emp.setEmpName(rset.getString("EMP_NAME"));
+                emp.setPhone(rset.getString("PHONE"));
+                emp.setDeptCode(rset.getString("DEPT_CODE"));
+                emp.setJobCode(rset.getString("JOB_CODE"));
+                emp.setSalary(rset.getInt("SALARY"));
+                emp.setEntYn(rset.getString("ENT_YN"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close(rset);
+            close(pstmt);
+            close(con);
+        }
+
+        return emp;
+    }
 }

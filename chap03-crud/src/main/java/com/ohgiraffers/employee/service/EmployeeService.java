@@ -1,6 +1,7 @@
 package com.ohgiraffers.employee.service;
 
 import com.ohgiraffers.employee.dao.EmployeeRepository;
+import com.ohgiraffers.employee.dto.EmployeeDTO;
 
 import java.util.ArrayList;
 
@@ -23,5 +24,19 @@ public class EmployeeService {
         }
 
         return employees;
+    }
+
+    public EmployeeDTO employeeFindByName(String name) throws Exception {
+        // name이 입력되지 않은 경우
+        if(name == null && name.equals("")){
+            return null;
+        }
+
+        EmployeeDTO emp = employeeRepository.employeeFindByName(name);
+
+        if(emp == null){
+            throw new Exception("사원정보 조회실패");
+        }
+        return emp;
     }
 }
